@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_play_maker"
+    tools:ignore="UnusedNavigation,UnusedIds"
+    android:label="Label"
+    app:startDestination="@id/fragment_counter_nav">
+    <fragment
+        android:id="@+id/fragment_counter_nav"
+        android:name="keyforge.counter.android.playmaker.counter.CounterFragment"
+        tools:layout="@layout/fragment_counter" />
+</navigation>

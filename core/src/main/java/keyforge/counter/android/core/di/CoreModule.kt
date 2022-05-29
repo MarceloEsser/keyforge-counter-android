@@ -4,6 +4,7 @@ import androidx.work.WorkManager
 import keyforge.counter.android.core.NetworkHandler
 import keyforge.counter.android.core.helper.WorkScheduler
 import keyforge.counter.android.core.service.history.HistoryServiceImpl
+import keyforge.counter.android.core.service.history.IHistoryApi
 import keyforge.counter.android.core.service.history.IHistoryService
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -23,7 +24,7 @@ private val workModule = module {
 private val historyModule = module {
     single { NetworkHandler.getRetrofit() }
 
-    single { get<Retrofit>().create(IHistoryService::class.java) }
+    single { get<Retrofit>().create(IHistoryApi::class.java) }
     single<IHistoryService> { HistoryServiceImpl(get(), get()) }
 }
 

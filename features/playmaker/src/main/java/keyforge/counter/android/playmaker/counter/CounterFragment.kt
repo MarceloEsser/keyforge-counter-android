@@ -1,32 +1,25 @@
 package keyforge.counter.android.playmaker.counter
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import keyforge.counter.android.commons.BaseFragment
 import keyforge.counter.android.playmaker.R
+import keyforge.counter.android.playmaker.databinding.FragmentCounterBinding
 
-class CounterFragment : Fragment() {
+class CounterFragment : BaseFragment<FragmentCounterBinding>(R.layout.fragment_counter) {
 
-    companion object {
-        fun newInstance() = CounterFragment()
-    }
+    private val viewModel: CounterViewModel by viewModel()
 
-    private lateinit var viewModel: CounterViewModel
+    override fun onInitDataBinding() {
+        viewBinding.viewModel = viewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_counter, container, false)
-    }
+        viewBinding.btnInsert.setOnClickListener {
+            viewModel.insertHistory()
+        }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CounterViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.status.observe(viewLifecycleOwner) { status ->
+            Log.d("bindingStaus", "onInitDataBinding: $status")
+        }
     }
 
 }

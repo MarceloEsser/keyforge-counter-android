@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".counter.CounterFragment">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -12,12 +15,20 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".counter.CounterFragment">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:text="@{viewModel.response.message}"
+                app:layout_constraintBottom_toTopOf="@id/btn_go_to_history"
+                app:layout_constraintEnd_toEndOf="@id/btn_insert"
+                app:layout_constraintStart_toStartOf="@id/btn_insert" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_insert"
@@ -28,6 +39,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_go_to_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="go to history"
+                app:layout_constraintBottom_toTopOf="@id/btn_insert"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         .

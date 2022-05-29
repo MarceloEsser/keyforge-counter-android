@@ -18,7 +18,7 @@ class HistoryServiceImpl(
             shouldFetch = { false },
             createCall = {
                 return@DataBoundResource api.putHistory(history)
-            }
+            },
         ).build()
     }
 }

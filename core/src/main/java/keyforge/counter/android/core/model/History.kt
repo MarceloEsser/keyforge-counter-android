@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 class History(
     @SerializedName("id")
-    val id: Long,
+    val id: String? = null,
     @SerializedName("date")
-    val date: Int,
+    val date: Long,
     @SerializedName("userId")
     val userId: String,
     @SerializedName("matchUp")

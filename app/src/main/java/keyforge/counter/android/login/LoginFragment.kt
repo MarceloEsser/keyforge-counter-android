@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import keyforge.counter.android.R
+import androidx.navigation.fragment.findNavController
 import keyforge.counter.android.commons.BaseFragment
 import keyforge.counter.android.databinding.FragmentLoginBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,7 +43,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         }
 
         viewBinding.brnCurrentUser.setOnClickListener {
-            Log.d("username", "onInitDataBinding: ${auth.currentUser?.displayName}")
+            findNavController().navigate(
+                LoginFragmentDirections.goToFragmentCounter()
+            )
         }
     }
 

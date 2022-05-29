@@ -19,10 +19,11 @@ import java.util.concurrent.TimeUnit
 
 
 object NetworkHandler {
+    //http://localhost:5000
     private const val baseUrl: String =
-        "http://localhost:5004/esser-marcelo-keyforge-counter/us-central1/api"
+        "http://10.0.2.2:5004/esser-marcelo-keyforge-counter/us-central1/api/"
 
-    fun getRetrofit() = Retrofit.Builder()
+    fun getRetrofit(): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create(gsonBuilder()))
         .addCallAdapterFactory(CallAdapterFactory())
         .client(httpClient())
