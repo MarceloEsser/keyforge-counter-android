@@ -1,0 +1,73 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+}
+
+dependencies {
+
+    implementation core
+
+    implementation retrofit_gson
+    implementation retrofit
+    implementation okhtttp3
+    implementation logging_interceptor
+    implementation jsoup
+
+    implementation coroutines_core
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+    implementation "io.insert-koin:koin-androidx-workmanager:3.1.2"
+
+    implementation koin_android
+    implementation koin_core
+
+    implementation room
+    kapt room_compiler
+
+    testImplementation room_testing
+    testImplementation coroutines_test
+    testImplementation arch_core_testing
+    testImplementation mockk
+    testImplementation junit
+    testImplementation core_test
+    androidTestImplementation androidx_ext_junit
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.21"
+
+    implementation(project(':commons'))
+}

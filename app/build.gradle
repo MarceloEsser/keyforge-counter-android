@@ -1,0 +1,72 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "keyforge.counter.android"
+        minSdk 23
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation core
+
+    implementation appcompat
+    implementation material
+    implementation constraint_layout
+    implementation navigation_fragment
+    implementation lifecycle_viewmodel
+    implementation lifecycle_livedata
+    implementation lottie
+
+    implementation coroutines_core
+    implementation koin_android
+    implementation koin_core
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation "io.insert-koin:koin-androidx-workmanager:3.1.2"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    androidTestImplementation androidx_ext_junit
+
+    testImplementation arch_core_testing
+    testImplementation coroutines_test
+    testImplementation mockk
+    testImplementation junit
+
+    implementation platform('com.google.firebase:firebase-bom:30.0.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+
+    implementation(project(':core'))
+    implementation(project(':commons'))
+}
