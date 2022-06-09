@@ -18,7 +18,7 @@ class AmberCounterTest : BaseUnitTest() {
     fun `Should notify and increase amber counter on keyForge liveData when increase amberCounter`() {
         viewModel.increaseAmberCounter(1)
 
-        viewModel.matchUpMediator.observeForever {
+        viewModel.keyForgeMediator.observeForever {
             assert(it.amberCounter == 1)
         }
     }
@@ -28,7 +28,7 @@ class AmberCounterTest : BaseUnitTest() {
         viewModel.increaseAmberCounter(5)
         viewModel.decreaseAmberCounter()
 
-        viewModel.matchUpMediator.observeForever {
+        viewModel.keyForgeMediator.observeForever {
             assert(it.amberCounter == 4)
         }
     }
@@ -37,7 +37,7 @@ class AmberCounterTest : BaseUnitTest() {
     fun `Should notify and do not decrease counter if amberCounter is equal to zero`() {
         viewModel.decreaseAmberCounter()
 
-        viewModel.matchUpMediator.observeForever {
+        viewModel.keyForgeMediator.observeForever {
             assert(it.amberCounter == 0)
         }
     }

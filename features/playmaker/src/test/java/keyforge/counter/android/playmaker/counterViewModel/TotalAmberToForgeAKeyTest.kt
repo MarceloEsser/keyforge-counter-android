@@ -16,7 +16,7 @@ class TotalAmberToForgeAKeyTest : BaseUnitTest() {
 
     @Test
     fun `Should be equal to four when the viewModel init`() {
-        viewModel.matchUpMediator.observeForever {
+        viewModel.keyForgeMediator.observeForever {
             assert(it.totalAmberToForgeKey == 4)
         }
     }
@@ -25,7 +25,7 @@ class TotalAmberToForgeAKeyTest : BaseUnitTest() {
     fun `Should be possible to forge a key when amber counter is higher or equal to totamAmberToForgeAKey`() {
         viewModel.increaseAmberCounter(4)
 
-        viewModel.matchUpMediator.observeForever {
+        viewModel.keyForgeMediator.observeForever {
             assert(it.canForge())
         }
     }
@@ -34,7 +34,7 @@ class TotalAmberToForgeAKeyTest : BaseUnitTest() {
     fun `Shouldn't be possible to forge a key when amber counter is lower than totalAmberToForgeAKey`() {
         viewModel.increaseAmberCounter(3)
 
-        viewModel.matchUpMediator.observeForever {
+        viewModel.keyForgeMediator.observeForever {
             assert(it.totalAmberToForgeKey == 4)
             assert(it.amberCounter == 3)
             assert(!it.canForge())

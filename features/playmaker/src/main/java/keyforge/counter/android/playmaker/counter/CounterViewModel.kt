@@ -1,18 +1,13 @@
 package keyforge.counter.android.playmaker.counter
 
-import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.*
-import keyforge.counter.android.core.Status
-import keyforge.counter.android.core.helper.WorkScheduler
-import keyforge.counter.android.core.model.*
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import keyforge.counter.android.core.model.Chain
+import keyforge.counter.android.core.model.KeyForge
 import keyforge.counter.android.core.model.key.BlueKey
 import keyforge.counter.android.core.model.key.RedKey
 import keyforge.counter.android.core.model.key.YellowKey
-import keyforge.counter.android.core.service.history.HistoryServiceImpl
-import keyforge.counter.android.core.service.history.IHistoryService
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.launch
-import java.util.*
 
 class CounterViewModel(
 //    private val api: IHistoryService,
@@ -20,15 +15,16 @@ class CounterViewModel(
 //    private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
+
     private var amberCounter: MutableLiveData<Int> = MutableLiveData<Int>(0)
     private var totalAmberToForge: MutableLiveData<Int> = MutableLiveData<Int>(4)
-    private var chain = MutableLiveData<Chain>()
-    private var blueKey = MutableLiveData<BlueKey>()
-    private var yellowKey = MutableLiveData<YellowKey>()
-    private var redKey = MutableLiveData<RedKey>()
+    private var chain = MutableLiveData(Chain(0))
+    private var blueKey = MutableLiveData(BlueKey(false, 0))
+    private var yellowKey = MutableLiveData(YellowKey(false, 0))
+    private var redKey = MutableLiveData(RedKey(false, 0))
 
 
-    val matchUpMediator: MutableLiveData<KeyForge> = MediatorLiveData<KeyForge>().apply {
+    val keyForgeMediator: MutableLiveData<KeyForge> = MediatorLiveData<KeyForge>().apply {
         if (value == null) {
             postValue(
                 KeyForge(4)
@@ -63,6 +59,21 @@ class CounterViewModel(
         amberCounter.value?.let {
             if (it >= counter)
                 amberCounter.postValue(amberCounter.value?.minus(counter))
+        }
+    }
+
+    fun increaseChain(counter: Int = 1) {
+        chain.value?.let {
+            it.current.plus(counter)
+            chain.postValue(it)
+        }
+    }
+
+    fun decreaseChain(counter: Int = 1) {
+        chain.value?.let {
+            if (it.current >= counter) {
+                it.current.minus(counter)
+            }
         }
     }
 }
