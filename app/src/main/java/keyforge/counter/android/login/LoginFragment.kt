@@ -43,9 +43,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(
         }
 
         viewBinding.brnCurrentUser.setOnClickListener {
-            findNavController().navigate(
-                LoginFragmentDirections.goToFragmentCounter()
-            )
+//            findNavController().navigate(
+//                LoginFragmentDirections.goToFragmentCounter()
+//            )
         }
     }
 

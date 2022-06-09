@@ -1,14 +1,13 @@
 package keyforge.counter.android.playmaker.counter
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.*
 import keyforge.counter.android.core.Status
 import keyforge.counter.android.core.helper.WorkScheduler
-import keyforge.counter.android.core.model.BaseResponse
-import keyforge.counter.android.core.model.History
-import keyforge.counter.android.core.model.MatchUp
+import keyforge.counter.android.core.model.*
+import keyforge.counter.android.core.model.key.BlueKey
+import keyforge.counter.android.core.model.key.RedKey
+import keyforge.counter.android.core.model.key.YellowKey
 import keyforge.counter.android.core.service.history.HistoryServiceImpl
 import keyforge.counter.android.core.service.history.IHistoryService
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,45 +15,54 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class CounterViewModel(
-    private val api: IHistoryService,
-    private val workScheduler: WorkScheduler,
-    private val dispatcher: CoroutineDispatcher
+//    private val api: IHistoryService,
+//    private val workScheduler: WorkScheduler,
+//    private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _status = MutableLiveData<Status>()
-    val status: LiveData<Status> by lazy {
-        insertHistory()
-        _status
+    private var amberCounter: MutableLiveData<Int> = MutableLiveData<Int>(0)
+    private var totalAmberToForge: MutableLiveData<Int> = MutableLiveData<Int>(4)
+    private var chain = MutableLiveData<Chain>()
+    private var blueKey = MutableLiveData<BlueKey>()
+    private var yellowKey = MutableLiveData<YellowKey>()
+    private var redKey = MutableLiveData<RedKey>()
+
+
+    val matchUpMediator: MutableLiveData<KeyForge> = MediatorLiveData<KeyForge>().apply {
+        if (value == null) {
+            postValue(
+                KeyForge(4)
+            )
+        }
+        addSource(amberCounter) {
+            value?.amberCounter = it
+        }
+        addSource(totalAmberToForge) {
+            value?.totalAmberToForgeKey = it
+        }
+        addSource(chain) {
+            value?.chain = it
+        }
+        addSource(blueKey) {
+            value?.blueKey = it
+        }
+        addSource(yellowKey) {
+            value?.yellowKey = it
+        }
+        addSource(redKey) {
+            value?.redKey = it
+        }
     }
 
-    private val _response = MutableLiveData<BaseResponse>()
-    val response: LiveData<BaseResponse>
-        get() = _response
 
-    fun insertHistory() {
-        viewModelScope.launch(dispatcher) {
+    fun increaseAmberCounter(counter: Int = 1) {
+        amberCounter.postValue(amberCounter.value?.plus(counter))
+    }
 
-            val now: Long = Calendar.getInstance().timeInMillis
-            val history = History(
-                date = now,
-                userId = "marselou",
-                matchUp = MatchUp(
-                    6,
-                    false,
-                    true,
-                    false,
-                    false
-                )
-            )
-            api.putHistory(
-                history
-            ).collect {
-                it.data?.let { baseResponse ->
-                    _response.postValue(baseResponse)
-                }
-                _status.postValue(it.status)
-            }
+    fun decreaseAmberCounter(counter: Int = 1) {
+        amberCounter.value?.let {
+            if (it >= counter)
+                amberCounter.postValue(amberCounter.value?.minus(counter))
         }
-
     }
 }

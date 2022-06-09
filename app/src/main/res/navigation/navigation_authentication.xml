@@ -6,14 +6,10 @@
     app:startDestination="@id/login_fragment"
     tools:ignore="UnusedNavigation,UnusedIds">
 
-    <include app:graph="@navigation/navigation_play_maker" />
 
     <fragment
         android:id="@+id/login_fragment"
         android:name="keyforge.counter.android.login.LoginFragment"
         android:label="@string/login_fragment_label">
-        <action
-            android:id="@+id/go_to_fragment_counter"
-            app:destination="@id/navigation_play_maker"/>
     </fragment>
 </navigation>

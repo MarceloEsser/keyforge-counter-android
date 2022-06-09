@@ -6,7 +6,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 private val viewModel = module {
-    viewModel { CounterViewModel(get(), get(), Dispatchers.IO) }
+    viewModel { CounterViewModel() }
 }
 
 val playMakerModules = listOf(viewModel)

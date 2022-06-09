@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1703125" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2776268115942029" />
         <entry key="features/history/src/main/res/layout/fragment_history.xml" value="0.1" />
+        <entry key="features/history/src/main/res/layout/row_history.xml" value="0.103515625" />
         <entry key="features/playmaker/src/main/res/layout/fragment_counter.xml" value="0.21851851851851853" />
       </map>
     </option>
