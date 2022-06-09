@@ -1,11 +1,11 @@
-package keyforge.counter.android.playmaker.viewModel
+package keyforge.counter.android.playmaker.counterViewModel
 
 import keyforge.counter.android.playmaker.BaseUnitTest
 import keyforge.counter.android.playmaker.counter.CounterViewModel
 import org.junit.Before
 import org.junit.Test
 
-class CounterViewModelTest : BaseUnitTest() {
+class AmberCounterTest : BaseUnitTest() {
 
     private lateinit var viewModel: CounterViewModel
 
@@ -16,7 +16,6 @@ class CounterViewModelTest : BaseUnitTest() {
 
     @Test
     fun `Should notify and increase amber counter on keyForge liveData when increase amberCounter`() {
-
         viewModel.increaseAmberCounter(1)
 
         viewModel.matchUpMediator.observeForever {
