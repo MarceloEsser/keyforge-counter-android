@@ -22,7 +22,7 @@ class TotalAmberToForgeAKeyTest : BaseUnitTest() {
     }
 
     @Test
-    fun `Should be possible to forge a key when amber counter is higher or equal to totamAmberToForgeAKey`() {
+    fun `Should be possible to forge a key when amber counter is higher or equal to totalAmberToForgeAKey`() {
         viewModel.increaseAmberCounter(4)
 
         viewModel.keyForgeMediator.observeForever {

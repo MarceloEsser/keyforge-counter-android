@@ -8,6 +8,7 @@ import keyforge.counter.android.core.model.KeyForge
 import keyforge.counter.android.core.model.key.BlueKey
 import keyforge.counter.android.core.model.key.RedKey
 import keyforge.counter.android.core.model.key.YellowKey
+import kotlin.math.abs
 
 class CounterViewModel(
 //    private val api: IHistoryService,
@@ -18,7 +19,7 @@ class CounterViewModel(
 
     private var amberCounter: MutableLiveData<Int> = MutableLiveData<Int>(0)
     private var totalAmberToForge: MutableLiveData<Int> = MutableLiveData<Int>(4)
-    private var chain = MutableLiveData(Chain(0))
+    private var chain = MutableLiveData<Chain>()
     private var blueKey = MutableLiveData(BlueKey(false, 0))
     private var yellowKey = MutableLiveData(YellowKey(false, 0))
     private var redKey = MutableLiveData(RedKey(false, 0))
@@ -63,16 +64,32 @@ class CounterViewModel(
     }
 
     fun increaseChain(counter: Int = 1) {
+        if (chain.value == null) {
+            chain.postValue(Chain(counter))
+            return
+        }
         chain.value?.let {
-            it.current.plus(counter)
+            it.current = it.current.plus(counter)
             chain.postValue(it)
         }
     }
 
     fun decreaseChain(counter: Int = 1) {
+        var mCounter = abs(counter)
+        if (chain.value == null) {
+            chain.postValue(Chain(0))
+            return
+        }
         chain.value?.let {
-            if (it.current >= counter) {
-                it.current.minus(counter)
+            if (it.current >= mCounter) {
+                it.current = it.current.minus(mCounter)
+                chain.postValue(it)
+                return
+            }
+
+            if (it.current < mCounter) {
+                it.current = 0
+                chain.postValue(it)
             }
         }
     }
